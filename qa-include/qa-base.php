@@ -1221,37 +1221,37 @@
 	Return the Q2A request for question $questionid, and make it search-engine friendly based on $title, which is
 	shortened if necessary by removing shorter words which are generally less meaningful.
 */
-	{ $title = Translit::slug($title);
-		if (qa_to_override(__FUNCTION__)) { $args=func_get_args(); return qa_call_override(__FUNCTION__, $args); }
+	{ 
+		$title = Translit::slug($title);
+		// if (qa_to_override(__FUNCTION__)) { $args=func_get_args(); return qa_call_override(__FUNCTION__, $args); }
 		
-		require_once QA_INCLUDE_DIR.'qa-app-options.php';
-		require_once QA_INCLUDE_DIR.'qa-util-string.php';
+		// require_once QA_INCLUDE_DIR.'qa-app-options.php';
+		// require_once QA_INCLUDE_DIR.'qa-util-string.php';
 	
-		$title=qa_block_words_replace($title, qa_get_block_words_preg());
+		// $title=qa_block_words_replace($title, qa_get_block_words_preg());
 		
-		$words=qa_string_to_words($title, true, false, false);
+		// $words=qa_string_to_words($title, true, false, false);
 
-		$wordlength=array();
-		foreach ($words as $index => $word)
-			$wordlength[$index]=qa_strlen($word);
+		// $wordlength=array();
+		// foreach ($words as $index => $word)
+		// 	$wordlength[$index]=qa_strlen($word);
 
-		$remaining=qa_opt('q_urls_title_length');
+		// $remaining=qa_opt('q_urls_title_length');
 		
-		if (array_sum($wordlength)>$remaining) {
-			arsort($wordlength, SORT_NUMERIC); // sort with longest words first
+		// if (array_sum($wordlength)>$remaining) {
+		// 	arsort($wordlength, SORT_NUMERIC); // sort with longest words first
 			
-			foreach ($wordlength as $index => $length) {
-				if ($remaining>0)
-					$remaining-=$length;
-				else
-					unset($words[$index]);
-			}
-		}
+		// 	foreach ($wordlength as $index => $length) {
+		// 		if ($remaining>0)
+		// 			$remaining-=$length;
+		// 		else
+		// 			unset($words[$index]);
+		// 	}
+		// }
 		
-		$title=implode('-', $words);
-		if (qa_opt('q_urls_remove_accents'))
-			$title=qa_string_remove_accents($title);
-		
+		// $title=implode('-', $words);
+		// if (qa_opt('q_urls_remove_accents'))
+		// 	$title=qa_string_remove_accents($title);
 		return (int)$questionid.'/'.$title;
 	}
 	
