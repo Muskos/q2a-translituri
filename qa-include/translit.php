@@ -98,7 +98,7 @@ class Translit {
      */
     public static function slug($string, $replacement = '-', $tolower = TRUE)
     {
-        $string = ($tolower) ? strtolower($string) : $string;
+        $string = ($tolower) ? mb_convert_case($string , MB_CASE_LOWER, 'utf-8') : $string;
 
         $quoted_replacement = preg_quote($replacement, '/');
 
